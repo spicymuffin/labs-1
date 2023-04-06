@@ -43,12 +43,12 @@ q4_c_answer = "last_name " + "==" + " 'Morris' " + "or" + \
 #
 # Q5: please fill in the empty string with your answer (string):
 #
-q5_answer = "print('John Doe\n123 Main Street\nAnytown, Maryland 21009')"
+q5_answer = "John Doe\n123 Main Street\nAnytown, Maryland 21009"
 
 #
 # Q6: please fill in the empty string with your answer (string):
 #
-q6_answer = "print(\"It\'s raining today.\")"
+q6_answer = "It\'s raining today."
 
 #
 # Q7: please fill in the empty strings with your answer (string):
