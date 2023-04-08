@@ -1,0 +1,7 @@
+apple
+200
+mango
+200
+apple
+300
+q
