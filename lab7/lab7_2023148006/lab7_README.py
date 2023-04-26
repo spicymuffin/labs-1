@@ -24,9 +24,9 @@ q1_e_answer = True
 #
 q2_a_answer = [1, 1, 1]
 q2_b_answer = [1, 1, 0]
-q2_c_answer = [1, 0, 1]
+q2_c_answer = [1, 1, 1]
 q2_d_answer = [2, 2, 2]
-q2_e_answer = [2, 1, 2]
+q2_e_answer = [2, 0, 1]
 
 #
 # Q3: please replace the empty strings by your answer (string)
@@ -37,7 +37,7 @@ q2_e_answer = [2, 1, 2]
 # (c) a variable name
 #
 q3_a_answer = "True"
-q3_b_answer = "copies"
+q3_b_answer = "aliases"
 q3_c_answer = "l3"
 
 ##############################################################################

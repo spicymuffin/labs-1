@@ -8,4 +8,4 @@ def modCount(n, m):
     Returns:
         int: the count of numbers that are divisible by m
     """
-    return n//m
+    return n//m # this works

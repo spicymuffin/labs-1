@@ -1,5 +1,5 @@
-isbn = input("Enter an ISBN: ") # get input
-spl = isbn.split("-") # split
+isbn = input("Enter an ISBN: ")  # get input
+spl = isbn.split("-")  # split
 
 # print a bunch of stuff, mind the field-width
 print(format(spl[0], ".<20") + "GS1 prefix")

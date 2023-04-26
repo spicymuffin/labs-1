@@ -9,7 +9,7 @@ def zeroCheck(n1, n2, n3):
     Returns:
         bool: if zeros found true otherwise false
     """
-    if n1 == 0 or n2 == 0 or n3 == 0:
-        return True
+    if n1 == 0 or n2 == 0 or n3 == 0:  # if all numbers are equal
+        return True  # return true
     else:
-        return False
+        return False  # return false

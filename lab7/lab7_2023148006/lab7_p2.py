@@ -9,7 +9,7 @@ def ordered3(n1, n2, n3):
     Returns:
         _type_: true of the parameters are in order smallest to largest, otherwise false
     """
-    if n1 <= n2 <= n3:
-        return True
+    if n1 <= n2 <= n3:  # if this is true
+        return True  # return true
     else:
-        return False
+        return False  # return false

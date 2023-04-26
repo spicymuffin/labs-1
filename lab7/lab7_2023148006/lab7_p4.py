@@ -10,5 +10,5 @@ def evalPolynomial(x, L):
     """
     sm = 0
     for i in range(len(L)):
-        sm += L[i]*x**i
+        sm += L[i]*x**i  # polynomial sum calculating magic line of code
     return sm
