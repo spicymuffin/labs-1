@@ -1,6 +1,14 @@
-import copy
+def resetValuesInPlace(L, threshold):
+    """sets values above thresehold in L to 0
 
-t = [1, 24, [1, 3, 5]]
-f = copy.deepcopy(t)
+    Args:
+        L (list): list to be mutated
+        threshold (int): threshold
 
-print(t, f)
+    Returns:
+        list: mutated list
+    """
+    for i in range(len(L)):
+        if L[i] > threshold:
+            L[i] = 0
+    return L
