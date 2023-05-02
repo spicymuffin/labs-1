@@ -1,6 +1,3 @@
-import turtle
-
-
 def drawSquare(myturtle, x, y, a):
     """draw square with turtle
 
@@ -13,11 +10,7 @@ def drawSquare(myturtle, x, y, a):
     myturtle.penup()
     myturtle.setposition((x, y))
     myturtle.pendown()
-    myturtle.setheading(90)
-    myturtle.forward(a)
-    myturtle.right(90)
-    myturtle.forward(a)
-    myturtle.right(90)
-    myturtle.forward(a)
-    myturtle.right(90)
-    myturtle.forward(a)
+    myturtle.setheading(180)  # set initial orientation
+    for i in range(4):
+        myturtle.right(90)  # rotate by 90
+        myturtle.forward(a)  # move forward

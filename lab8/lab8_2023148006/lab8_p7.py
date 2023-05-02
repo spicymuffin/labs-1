@@ -8,6 +8,14 @@ def lookAndSay(n, i):
         bool: result
     """
     def calc_nxt(m):
+        """calculates next number in sequence
+
+        Args:
+            m (int): previous element
+
+        Returns:
+            str: next element in sequence
+        """
         m = str(m)
         d = [0]*10  # empty list (index represents digit)
         for i in m:  # iterate number
