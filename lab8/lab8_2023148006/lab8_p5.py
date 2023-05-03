@@ -4,6 +4,7 @@ import turtle
 import random
 import time
 
+# set turtle's colormode to 255 rgb mode
 turtle.colormode(255)
 
 
@@ -62,7 +63,7 @@ def createBalls(num_balls):
         new_ball.speed(0)
         new_ball.penup()
         new_ball.setheading(random.randint(1, 359))
-        new_ball.pendown()  # pendown
+        new_ball.pendown()  # pendown to leave a trail
         balls.append(new_ball)
 
     return balls

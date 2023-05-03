@@ -1,7 +1,7 @@
 import turtle
 turtle.setup(500, 500)
 
-window = turtle.Screen()
+window = turtle.Screen() # create window
 window.title("this is so fun!!11!")  # title for fun!!!
 
 t = turtle.getturtle()  # make turtle

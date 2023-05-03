@@ -9,6 +9,6 @@ def resetValuesInPlace(L, threshold):
         list: mutated list
     """
     for i in range(len(L)):
-        if L[i] > threshold:
-            L[i] = 0
+        if L[i] > threshold:  # if element bigger than threshold
+            L[i] = 0  # set to zero
     return L
