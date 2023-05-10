@@ -164,7 +164,7 @@ def displayWinner(winning_horse, winner_banner):
 
 
 # init number of horses
-num_horses = 3
+num_horses = 10
 
 win_cntr = [0] * num_horses
 

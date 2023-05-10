@@ -6,23 +6,24 @@
 import turtle
 
 
-def square(t, length):
+def square(t, length):  # draws a square
     for s in range(4):
         t.forward(length)
         t.left(90)
 
 
 def writeText():
-    text_t.clear()
-    posx, posy = t.position()
-    posx = int(posx)
-    posy = int(posy)
-    text_t.write(f"({posx}, {posy})", font = ('Times New Roman', 8, 'bold'))
-    text_t.setpos(0, 0)
+    text_t.clear()  # clear previous text
+    posx, posy = t.position()  # assign coord vars
+    posx = int(posx)  # get x coord of turtle
+    posy = int(posy)  # get y coord of turtle
+    text_t.write(f"({posx}, {posy})", font=(
+        'Times New Roman', 8, 'bold'))  # actually write the text
+    text_t.setpos(0, 0)  # set text position
 
 
 def closeDown():
-    turtle.bye()
+    turtle.bye()  # exit
 
 
 def drawShape(x, y):
@@ -57,8 +58,8 @@ turtle.setworldcoordinates(0, 0, 300, 200)
 t = turtle.getturtle()
 t.speed(0)  # Set fastest screen update speed for this turtle.
 
-text_t = turtle.Turtle()
-text_t.speed(0)
+text_t = turtle.Turtle()  # get text turtle reference
+text_t.speed(0)  # Set fastest screen update speed for text turtle.
 
 # Draw two vertical lines to divide the window into thirds:
 t.penup()

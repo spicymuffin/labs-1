@@ -1,6 +1,3 @@
-import turtle
-
-
 def drawFlower(myturtle, r):
     """ Draws a flower composed of 24 circles
     on the screen: 12 red circles and 12
@@ -11,30 +8,17 @@ def drawFlower(myturtle, r):
     positioned in the center of the flower.
     """
     ringcnt = 12
-    deg = 360//ringcnt
-    myturtle.hideturtle()
-    myturtle.pencolor("red")
-    for i in range(ringcnt):
+    deg = 360//ringcnt  # calc displace (in deg)
+    myturtle.hideturtle()  # hide turtle
+    myturtle.pencolor("red")  # set bigger circles color
+    for _ in range(ringcnt):  # draw a circle ringcnt times
+        # turn right (could be left actually who cares why did i even write this if someone reads this please let me know or something)
         myturtle.right(deg)
+        # draw circle
         myturtle.circle(r)
 
+    # same stuff but blue
     myturtle.pencolor("blue")
-    for i in range(ringcnt):
+    for _ in range(ringcnt):
         myturtle.right(deg)
         myturtle.circle(r//2)
-
-
-# screen size
-screen_width = 600
-screen_height = 600
-turtle.setup(screen_width, screen_height)
-
-# create turtle window
-window = turtle.Screen()
-window.title('flower')
-
-t = turtle.Turtle()
-t.speed(0)
-drawFlower(t, 125)
-
-window.exitonclick()

@@ -10,7 +10,7 @@
 import turtle
 import random
 import time
-
+import sys # to use sys.exit()
 
 def getHorseImages(num_horses):
     # init empty list
@@ -164,8 +164,9 @@ def displayWinner(winning_horse, winner_banner):
 
 
 # init number of horses
-num_horses = 3
+num_horses = 10
 
+# initialize win counter
 win_cntr = [0] * num_horses
 
 # set window size
@@ -207,19 +208,23 @@ winner = startHorses(horses, banner_images, finish_line,
 displayWinner(horses[winner], banner_images[3][0])
 win_cntr[winner] += 1
 
+# clear screen (iterate through each horse)
 for i in range(num_horses):
     horses[i].clear()
     horses[i].hideturtle()
 turtle.clear()
 
-
+# initial prompt
 a = input("Press 'q' to quit: ")
 
+# print scoreboard
 if a == 'q':
     for i in range(num_horses):
         print(f"Horse {i+1} won {win_cntr[i]} times")
-    exit()
+    turtle.bye()
+    sys.exit()
 
+#loop while input isn't q
 while a != 'q':
     # register images
     horse_images = getHorseImages(num_horses)
@@ -241,12 +246,17 @@ while a != 'q':
     displayWinner(horses[winner], banner_images[3][0])
     win_cntr[winner] += 1
 
-    for i in range(num_horses):
+    for i in range(num_horses): # clean screen
         horses[i].clear()
         horses[i].hideturtle()
     turtle.clear()
 
+    # prompt to ask wetherto simulate another time
     a = input("Press 'q' to quit: ")
 
+# iterate thriugh scoreboard and output win counts
 for i in range(num_horses):
     print(f"Horse {i+1} won {win_cntr[i]} times")
+
+turtle.bye()
+sys.exit()
