@@ -18,6 +18,7 @@
 #
 q1_a_answer = "11 20"
 q1_a_occurrences = [(2, "n", "global"),
+                    (4, "n", "foo1"),
                     (5, "n", "foo1"),
                     (6, "n", "foo1"),
                     (8, "n", "global"),
@@ -29,11 +30,13 @@ q1_a_occurrences = [(2, "n", "global"),
 q1_b_answer = "2"
 q1_b_occurrences = [(3, "y", "bar"),
                     (3, "x", "foo"),
+                    (4, "y", "bar"),
                     (5, "x", "foo"),
                     (8, "x", "global")]
 q1_c_answer = "1"
 q1_c_occurrences = [(3, "y", "bar"),
                     (3, "x", "global"),
+                    (4, "y", "bar"),
                     (8, "x", "global")]
 
 ##############################################################################

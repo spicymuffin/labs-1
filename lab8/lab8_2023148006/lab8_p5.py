@@ -45,7 +45,7 @@ def bounceBall(ball, new_direction):
     clr2 = (random.randint(0, 255),
             random.randint(0, 255),
             random.randint(0, 255))
-    while (clr == clr2):  # generate new color until its new
+    while clr == clr2:  # generate new color until its new
         clr2 = (random.randint(0, 255),
                 random.randint(0, 255),
                 random.randint(0, 255))
