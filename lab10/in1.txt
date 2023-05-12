@@ -1,0 +1,5 @@
+luigi
+file 1
+ahaha
+yuika why
+eof 1

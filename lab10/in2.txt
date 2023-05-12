@@ -1,0 +1,5 @@
+hello
+this is file 2
+sample text
+lorem ipsum
+eof 2
