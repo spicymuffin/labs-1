@@ -25,6 +25,3 @@ def copyFiles(f1, f2, f3):
     out_file.close()
 
     return 0  # return 0 idk why
-
-
-copyFiles('in1.txt', 'in2.txt', 'out.txt')
