@@ -1,14 +1,12 @@
 import time
 
-SIZE = 20  # size of the 2D cellular automaton
+# region constants
+DEBUG = True
 FRAMERATE = 60
-
-DELAY = 1/FRAMERATE
+SIZE = 20  # size of the 2D cellular automaton
 LOADED_WORLD_SIZE = 20
-
-WORLD = []
 INITAL_WORLD = """----------------------
-| x                 x| row 0
+| x                  | row 0
 | x                  | row 1
 | x                  | row 2
 |                    | row 3
@@ -29,6 +27,13 @@ INITAL_WORLD = """----------------------
 |                    | row 18
 |                    | row 19
 ----------------------"""
+
+# calcualted constants
+DELAY = 1/FRAMERATE
+WORLD = []
+# endregion
+
+# region funcs
 
 
 def readVal(valType, requestMsg, errorMsg, default=None):
@@ -57,11 +62,18 @@ def printWorld(world):
     '''
     printSep()
 
-    line = []  # use list bc concatenating str is slow
-    line.append("|")
     for i in range(0, SIZE):
+        line = []  # use list bc concatenating str is slow
+        line.append('|')
         for j in range(0, SIZE):
-            pass
+            if world[i][j] == 0:
+                line.append(' ')
+            else:
+                line.append('x')
+        line.append('|')
+        line.extend("row " + str(i))
+        print(''.join(line))
+    printSep()
 
 
 def loadWorld(world_str):
@@ -74,36 +86,65 @@ def loadWorld(world_str):
     spl = world_str.split("\n")
     for i in range(1, LOADED_WORLD_SIZE + 1):
         for j in range(1, LOADED_WORLD_SIZE + 1):  # again, constant size
-            print(i, j)
             if spl[i][j] == "x":
-                print("t", i, j)
                 world_out[i-1][j-1] = 1
-                print(id(world_out[i]), id(world_out[i+1]))
 
-    print(world_out)
     return world_out
 
-#
-# Main program
-#
+
+def getLiveNeighbourCount(y, x, world, size):
+    size -= 1  # zero indexed
+
+    cnt = 0  # counter
+
+    bound_w_x = x - 1 if x > 0 else x
+    bound_e_x = x + 1 if x < size else x
+    bound_n_y = y - 1 if y > 0 else y
+    bound_s_y = y + 1 if y < size else y
+
+    for i in range(bound_n_y, bound_s_y + 1):
+        for j in range(bound_w_x, bound_e_x + 1):
+            cnt += world[i][j]
+            print(i, j)
+
+    cnt -= world[y][x]  # self isnt neighbour
+
+    return cnt
+# endregion
 
 
-SIZE = readVal(int, "Grid sidelength (default 20): ",
-               "is an invalid integer", default=20)
-MAX_GENERATION = readVal(int, "Max generation: ", "is an invalid integer")
-while MAX_GENERATION <= 0:
-    MAX_GENERATION = readVal(int, "Max generation: ", "is an invalid integer")
+# get input
+if DEBUG == False:
+    SIZE = readVal(int, "Grid sidelength (default 20): ",
+                   "is an invalid value for this variable", default=20)  # get size
 
-WORLD = [[0]*SIZE]*SIZE
+    # get max generation (weed out broken ints)
+    MAX_GENERATION = readVal(int, "Max generation: ",
+                             "is an invalid value for this variable")
+
+    # get max generation (weed out invalid ints)
+    while MAX_GENERATION <= 0:
+        MAX_GENERATION = readVal(
+            int, "Max generation: ", "is an invalid value for this variable")
+else:
+    SIZE = 20
+    MAX_GENERATION = -1  # no output basically
+
+# init world
+for i in range(SIZE):
+    WORLD.append([0]*SIZE)
+
+# load world
 LOADED_WORLD = loadWorld(INITAL_WORLD)
-
 for i in range(len(LOADED_WORLD)):
     for j in range(len(LOADED_WORLD)):
         WORLD[i][j] = LOADED_WORLD[i][j]
 
-# print(WORLD)
 
-# Compute:
+print(getLiveNeighbourCount(0, 19, WORLD, 20))
+
+# main updating loop:
 for i in range(MAX_GENERATION + 1):
     printWorld(WORLD)
+    # update world
     time.sleep(DELAY)
