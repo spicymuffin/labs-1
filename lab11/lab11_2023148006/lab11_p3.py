@@ -14,7 +14,8 @@ def getFile():
     input_file_opened = False
     while not input_file_opened:
         try:
-            file_name = input('Enter input file name (with extension): ')
+            #file_name = input('Enter input file name (with extension): ')
+            file_name = "1984.txt"
             input_file = open(file_name, 'r')
             input_file_opened = True
         except OSError:
@@ -67,15 +68,32 @@ def countWords(input_file, search_word):
 
 
 file_name, input_file = getFile()
+output_file = open(file_name[:-3] + 'wc', 'w')
 
-search_word = input('Enter word to search: ')
-search_word = search_word.lower()
+word_delimiters = (' ', ',', ';', ':', '.', '\n',
+                   '"', "'", '(', ')')
 
-num_occurrences = countWords(input_file, search_word)
+word_list = []
+for l in input_file:
+    bgn = 0
+    end = 0
+    while end < len(l):
+        while end < len(l) and l[end] not in word_delimiters:
+            end += 1
+        word = l[bgn:end]
+        if word != '' and word.lower() not in word_list:
+            word_list.append(word.lower())
+        end += 1
+        bgn = end
 
-if num_occurrences == 0:
-    print('No occurrences of word', "'" + search_word + "'",
-          'found in file', file_name)
-else:
-    print('The word', "'" + search_word + "'", 'occurs', num_occurrences,
-          'times in file', file_name)
+input_file.seek(0)
+
+word_list.sort()
+
+for w in word_list:
+    cnt = countWords(input_file, w)
+    print(cnt)
+    output_file.write(w + ": " + str(cnt) + '\n')
+    input_file.seek(0)
+
+output_file.close()
