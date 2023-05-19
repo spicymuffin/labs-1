@@ -149,7 +149,7 @@ def work_data(_pollution_data, _cancer_data):
     # find intersection
     intersection = []
 
-    # blazing fast 😎 (faster with hashes but oh well)
+    # blazingly fast 😎 (faster with hashes but oh well)
     i = 0
     j = 0
     while i < len(a) and j < len(b):  # sorted merge basically
