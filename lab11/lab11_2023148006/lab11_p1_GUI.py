@@ -1,10 +1,12 @@
 import time
+from tkinter import *
 
 # region constants
-DEBUG = True
-FRAMERATE = 60
+DEBUG = False
+FRAMERATE = 12
 SIZE = 20  # size of the 2D cellular automaton
 LOADED_WORLD_SIZE = 20
+CELL_SIZE = 10
 INITAL_WORLD = """----------------------
 | x                  | row 0
 | x                  | row 1
@@ -29,8 +31,9 @@ INITAL_WORLD = """----------------------
 ----------------------"""
 
 # calcualted constants
-DELAY = 1/FRAMERATE
+DELAY = round(1/FRAMERATE*1000)
 WORLD = []
+GENERATION_CNT = 0
 # endregion
 
 # region funcs
@@ -55,25 +58,21 @@ def printSep():
     print('')
 
 
-def printWorld(world):
-    '''
-    Print one generation.
-    Must use printSep() above to print the separators.
-    '''
-    printSep()
+def refreshWorld(world, canvas):
+    """displays world
 
-    for i in range(0, SIZE):
-        line = []  # use list bc concatenating str is slow
-        line.append('|')
-        for j in range(0, SIZE):
-            if world[i][j] == 0:
-                line.append(' ')
-            else:
-                line.append('x')
-        line.append('|')
-        line.extend("row " + str(i))
-        print(''.join(line))
-    printSep()
+    Args:
+        world (_type_): _description_
+        canvas (_type_): _description_
+    """
+
+    canvas.delete("all")
+
+    for i in range(SIZE):
+        for j in range(SIZE):
+            if world[i][j] == 1:
+                canvas.create_rectangle(j*CELL_SIZE, i*CELL_SIZE, j*CELL_SIZE +
+                                        CELL_SIZE, i*CELL_SIZE+CELL_SIZE, fill="black", outline='black')
 
 
 def loadWorld(world_str):
@@ -130,8 +129,8 @@ if DEBUG == False:
         MAX_GENERATION = readVal(
             int, "Max generation: ", "is an invalid value for this variable")
 else:
-    SIZE = 30
-    MAX_GENERATION = 12  # no output basically if set to -1
+    SIZE = 20
+    MAX_GENERATION = 1000  # no output basically if set to -1
 
 # init world
 for i in range(SIZE):
@@ -144,12 +143,25 @@ for i in range(len(LOADED_WORLD)):
         WORLD[i][j] = LOADED_WORLD[i][j]
 
 
-# print(getLivingNeighbourCount(0, 19, WORLD, 20))
+root = Tk()
+root.title("Cellular Automata")
+root.resizable(False, False)
+canvas = Canvas(root, width=SIZE * CELL_SIZE, height=SIZE * CELL_SIZE)
+canvas.pack()
+
 
 # main updating loop:
-for i in range(MAX_GENERATION + 1):
+def update():
+    global canvas
+    global WORLD
+    global SIZE
+    global DELAY
+    global GENERATION_CNT
+
     # print world
-    printWorld(WORLD)
+    print(GENERATION_CNT)
+    refreshWorld(WORLD, canvas)
+    GENERATION_CNT += 1
 
     # init next generation
     NEXT_GENERATION = []
@@ -173,5 +185,9 @@ for i in range(MAX_GENERATION + 1):
 
     # prepare for next generation
     WORLD = NEXT_GENERATION
+    if GENERATION_CNT <= MAX_GENERATION:
+        canvas.after(int(DELAY), update)
 
-    time.sleep(DELAY)
+
+update()
+root.mainloop()
