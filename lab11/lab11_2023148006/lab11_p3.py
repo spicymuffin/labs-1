@@ -14,8 +14,7 @@ def getFile():
     input_file_opened = False
     while not input_file_opened:
         try:
-            #file_name = input('Enter input file name (with extension): ')
-            file_name = "1984.txt"
+            file_name = input('Enter input file name (with extension): ')
             input_file = open(file_name, 'r')
             input_file_opened = True
         except OSError:
@@ -55,7 +54,7 @@ def countWords(input_file, search_word):
                     # because line[index - 1] must be a delimiter! (So index=0 is
                     # invalid, because the LEFT delimiter is missing.)
                     if line[index - 1] in word_delimiters and \
-                            line[index + search_word_len] in word_delimiters:
+                            line[index + search_word_len if line[-1] == '\n' else search_word_len - 1] in word_delimiters:  # for SOME reason this doesnt work if the file ends with not a newline 😡
                         found_search_word = True
                 if found_search_word:
                     # print('Pos:', index)
@@ -73,27 +72,41 @@ output_file = open(file_name[:-3] + 'wc', 'w')
 word_delimiters = (' ', ',', ';', ':', '.', '\n',
                    '"', "'", '(', ')')
 
+last_bgn = 0
+last_line = ""
 word_list = []
 for l in input_file:
-    bgn = 0
-    end = 0
+    bgn = 0  # beginnning of delimited word
+    end = 0  # end of delimited word
     while end < len(l):
+        # seek while we dont find a delimiter
         while end < len(l) and l[end] not in word_delimiters:
             end += 1
-        word = l[bgn:end]
+        word = l[bgn:end]  # then the word is from beginning to end
         if word != '' and word.lower() not in word_list:
             word_list.append(word.lower())
         end += 1
+        last_bgn = bgn
         bgn = end
 
-input_file.seek(0)
+    last_line = l  # this is needed in case the file doesnt end with a \n
 
-word_list.sort()
+# this is needed in case the file doesnt end with a \n
+if last_line[-1] != '\n':
+    word = last_line[last_bgn:]
+    if word != '' and word.lower() not in word_list:  # sry CBB making it pretty
+        word_list.append(word.lower())
 
+input_file.seek(0) # seek bc we read the file once
+
+word_list.sort()  # sort
+
+
+# now count every unique word occurences using provided funcs
 for w in word_list:
     cnt = countWords(input_file, w)
-    print(cnt)
     output_file.write(w + ": " + str(cnt) + '\n')
-    input_file.seek(0)
+    input_file.seek(0) # this is ULTRA slow AND idc 😅
 
 output_file.close()
+input_file.close()

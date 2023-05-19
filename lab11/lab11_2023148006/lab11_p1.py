@@ -1,7 +1,7 @@
 import time
 
 # region constants
-DEBUG = True  # set to False to get user input before simulation
+DEBUG = False  # set to False to get user input before simulation
 FRAMERATE = 1  # framerate (one is boring but oh well)
 SIZE = 20  # size of the 2D cellular automaton
 INITIAL_WORLD_SIZE = 20  # size of the loaded world

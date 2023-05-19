@@ -174,7 +174,6 @@ def update():
     global GENERATION_CNT
 
     # print world
-    print(GENERATION_CNT)
     refreshWorld(WORLD, canvas)
     GENERATION_CNT += 1
 
