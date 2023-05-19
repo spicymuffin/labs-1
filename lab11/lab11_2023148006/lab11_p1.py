@@ -1,10 +1,10 @@
 import time
 
 # region constants
-DEBUG = True
-FRAMERATE = 60
+DEBUG = True  # set to False to get user input before simulation
+FRAMERATE = 1  # framerate (one is boring but oh well)
 SIZE = 20  # size of the 2D cellular automaton
-LOADED_WORLD_SIZE = 20
+INITIAL_WORLD_SIZE = 20  # size of the loaded world
 INITAL_WORLD = """----------------------
 | x                  | row 0
 | x                  | row 1
@@ -29,15 +29,26 @@ INITAL_WORLD = """----------------------
 ----------------------"""
 
 # calcualted constants
-DELAY = 1/FRAMERATE
-WORLD = []
+DELAY = round(1/FRAMERATE)  # calculate delay
+WORLD = []  # world array (is 2D)
 # endregion
 
 # region funcs
 
 
 def readVal(valType, requestMsg, errorMsg, default=None):
-    while True:
+    """reads a value of type valType. makes a prompt and a default value can be set.
+
+    Args:
+        valType (type): type of value to be read
+        requestMsg (str): prompt
+        errorMsg (str): error message
+        default (any, optional): default value. Defaults to None.
+
+    Returns:
+        valType: value
+    """
+    while True:  # request value until value
         val = input(requestMsg)
         if val == "" and default != None:
             return default
@@ -56,10 +67,11 @@ def printSep():
 
 
 def printWorld(world):
-    '''
-    Print one generation.
-    Must use printSep() above to print the separators.
-    '''
+    """prints world
+
+    Args:
+        world (list): world
+    """
     printSep()
 
     for i in range(0, SIZE):
@@ -71,23 +83,31 @@ def printWorld(world):
             else:
                 line.append('x')
         line.append('|')
-        line.extend("row " + str(i))
+        line.extend(" row " + str(i))
         print(''.join(line))
     printSep()
 
 
 def loadWorld(world_str):
-    global LOADED_WORLD_SIZE
+    """loads an output of this program as an world (list)
+
+    Args:
+        world_str (str): output to load
+
+    Returns:
+        list: loaded world
+    """
+    global INITIAL_WORLD_SIZE
     # loaded worlds are always of this size
     world_out = []
-    for i in range(LOADED_WORLD_SIZE):
-        world_out.append([0]*LOADED_WORLD_SIZE)
+    for i in range(INITIAL_WORLD_SIZE):
+        world_out.append([0]*INITIAL_WORLD_SIZE)  # created empty basically
 
-    spl = world_str.split("\n")
-    for i in range(1, LOADED_WORLD_SIZE + 1):
-        for j in range(1, LOADED_WORLD_SIZE + 1):  # again, constant size
+    spl = world_str.split("\n")  # split by lines
+    for i in range(1, INITIAL_WORLD_SIZE + 1):
+        for j in range(1, INITIAL_WORLD_SIZE + 1):  # again, constant size
             if spl[i][j] == "x":
-                world_out[i-1][j-1] = 1
+                world_out[i-1][j-1] = 1  # set living cells
 
     return world_out
 
@@ -108,7 +128,6 @@ def getLivingNeighbourCount(y, x, world, size):
         for j in range(bound_w_x, bound_e_x + 1):
             # just add value since alive cells are represented as ones
             cnt += world[i][j]
-            #print(i, j)
 
     cnt -= world[y][x]  # self isnt neighbour
 
@@ -131,7 +150,8 @@ if DEBUG == False:
             int, "Max generation: ", "is an invalid value for this variable")
 else:
     SIZE = 30
-    MAX_GENERATION = 12  # no output basically if set to -1
+    MAX_GENERATION = 100  # no output basically if set to -1
+    DELAY = 1/60
 
 # init world
 for i in range(SIZE):
@@ -143,8 +163,6 @@ for i in range(len(LOADED_WORLD)):
     for j in range(len(LOADED_WORLD)):
         WORLD[i][j] = LOADED_WORLD[i][j]
 
-
-# print(getLivingNeighbourCount(0, 19, WORLD, 20))
 
 # main updating loop:
 for i in range(MAX_GENERATION + 1):
@@ -159,11 +177,12 @@ for i in range(MAX_GENERATION + 1):
     # update next generaion based on world
     for i in range(SIZE):
         for j in range(SIZE):
-            n = getLivingNeighbourCount(i, j, WORLD, SIZE)
+            n = getLivingNeighbourCount(
+                i, j, WORLD, SIZE)  # get neighbour count
             NEXT_GENERATION[i][j] = WORLD[i][j]
             if n < 2:
                 NEXT_GENERATION[i][j] = 0
-            # is this even needed...?
+            # is this even needed...? idk just gonna leave it as is
             if WORLD[i][j] == 1 and (n == 2 or n == 3):
                 NEXT_GENERATION[i][j] = 1
             if n > 3:

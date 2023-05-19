@@ -40,6 +40,17 @@ GENERATION_CNT = 0
 
 
 def readVal(valType, requestMsg, errorMsg, default=None):
+    """reads a value of type valType. makes a prompt and a default value can be set.
+
+    Args:
+        valType (type): type of value to be read
+        requestMsg (str): prompt
+        errorMsg (str): error message
+        default (any, optional): default value. Defaults to None.
+
+    Returns:
+        valType: value
+    """
     while True:
         val = input(requestMsg)
         if val == "" and default != None:
@@ -59,11 +70,11 @@ def printSep():
 
 
 def refreshWorld(world, canvas):
-    """displays world
+    """refreshes world
 
     Args:
-        world (_type_): _description_
-        canvas (_type_): _description_
+        world (list): world lol
+        canvas (canvas): it's a canvas!
     """
 
     canvas.delete("all")
@@ -82,6 +93,7 @@ def loadWorld(world_str):
     for i in range(LOADED_WORLD_SIZE):
         world_out.append([0]*LOADED_WORLD_SIZE)
 
+    # who cares
     spl = world_str.split("\n")
     for i in range(1, LOADED_WORLD_SIZE + 1):
         for j in range(1, LOADED_WORLD_SIZE + 1):  # again, constant size
@@ -143,6 +155,9 @@ for i in range(len(LOADED_WORLD)):
         WORLD[i][j] = LOADED_WORLD[i][j]
 
 
+# does anybody read this
+# pls lmk somehow....
+
 root = Tk()
 root.title("Cellular Automata")
 root.resizable(False, False)
@@ -175,7 +190,7 @@ def update():
             NEXT_GENERATION[i][j] = WORLD[i][j]
             if n < 2:
                 NEXT_GENERATION[i][j] = 0
-            # is this even needed...?
+            # is this even needed...? idk just gonna leave it as is
             if WORLD[i][j] == 1 and (n == 2 or n == 3):
                 NEXT_GENERATION[i][j] = 1
             if n > 3:
@@ -186,6 +201,7 @@ def update():
     # prepare for next generation
     WORLD = NEXT_GENERATION
     if GENERATION_CNT <= MAX_GENERATION:
+        # i hate this
         canvas.after(int(DELAY), update)
 
 
