@@ -53,8 +53,10 @@ def countWords(input_file, search_word):
                     # All matching cases in middle of line must have 'index > 0',
                     # because line[index - 1] must be a delimiter! (So index=0 is
                     # invalid, because the LEFT delimiter is missing.)
-                    if line[index - 1] in word_delimiters and \
-                            line[index + search_word_len if line[-1] == '\n' else search_word_len - 1] in word_delimiters:  # for SOME reason this doesnt work if the file ends with not a newline 😡
+                    if len(line) == index + search_word_len:
+                        found_search_word = True
+                    elif line[index - 1] in word_delimiters and \
+                            line[index + search_word_len] in word_delimiters:  # for SOME reason this doesnt work if the file ends with not a newline 😡
                         found_search_word = True
                 if found_search_word:
                     # print('Pos:', index)
@@ -97,7 +99,7 @@ if last_line[-1] != '\n':
     if word != '' and word.lower() not in word_list:  # sry CBB making it pretty
         word_list.append(word.lower())
 
-input_file.seek(0) # seek bc we read the file once
+input_file.seek(0)  # seek bc we read the file once
 
 word_list.sort()  # sort
 
@@ -106,7 +108,7 @@ word_list.sort()  # sort
 for w in word_list:
     cnt = countWords(input_file, w)
     output_file.write(w + ": " + str(cnt) + '\n')
-    input_file.seek(0) # this is ULTRA slow AND idc 😅
+    input_file.seek(0)  # this is ULTRA slow AND idc 😅
 
 output_file.close()
 input_file.close()
