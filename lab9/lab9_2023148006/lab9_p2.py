@@ -30,7 +30,8 @@ def check_inp(a):
     Returns:
         str: result
     """
-    # this is literally it bc we can assume inputs are all ints or one of the allowed operators and they are separated by spaces
+    # this is literally it bc we can assume inputs are all ints or one of the
+    # allowed operators and they are separated by spaces
     if a in operators:
         return "operator"
     elif check_int(a):
@@ -70,7 +71,8 @@ while check_inp(inp[0]) != "nothing":
     res = 0  # result
     malformed = False  # malformation (is this even a word lol) flag
 
-    # if last input isn't a "=" or there are multiple "="s throw Evaluation error and exit
+    # if last input isn't a "=" or there are multiple "="s throw Evaluation
+    # error and exit
     if (not (inp[-1] == '=' and inp.count('=') == 1)):
         malformed = True
 
@@ -80,7 +82,7 @@ while check_inp(inp[0]) != "nothing":
             # determine type of input
             t = check_inp(inp[i])
             if t == "operator":  # if is an operator
-                if inp[i] == '=':  # if "=" encountered it means we are at the end
+                if inp[i] == '=':  # if "=" encountered it means we are at
                     res = stack.pop(s)
                     if res is None:  # if result None for some reason
                         malformed = True  # malformed idc
@@ -118,7 +120,8 @@ while check_inp(inp[0]) != "nothing":
     else:
         # print result
         print(
-            f"Value of expression: {int(res) if float.is_integer(float(res)) else format(res, '.2f')}")
+            f"""Value of expression: {int(res) if float.is_integer(
+                float(res)) else format(res, '.2f')}""")
 
     # get raw RPN expression, split it by spaces
     inp = input("Enter an RPN expression: ").split(' ')

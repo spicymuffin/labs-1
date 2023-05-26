@@ -12,7 +12,8 @@ def drawFlower(myturtle, r):
     myturtle.hideturtle()  # hide turtle
     myturtle.pencolor("red")  # set bigger circles color
     for _ in range(ringcnt):  # draw a circle ringcnt times
-        # turn right (could be left actually who cares why did i even write this if someone reads this please let me know or something)
+        # turn right (could be left actually who cares why did i even write
+        # this if someone reads this please let me know or something)
         myturtle.right(deg)
         # draw circle
         myturtle.circle(r)

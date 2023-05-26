@@ -10,7 +10,8 @@
 import turtle
 import random
 import time
-import sys # to use sys.exit()
+import sys  # to use sys.exit()
+
 
 def getHorseImages(num_horses):
     # init empty list
@@ -100,7 +101,7 @@ def findLeadHorse(horses):
 
 
 def displayBanner(banner, position):
-    the_turtle = turtle.getturtle()
+    turtle.getturtle()
     turtle.setposition(position[0], position[1])
     turtle.shape(banner)
     turtle.stamp()
@@ -224,7 +225,7 @@ if a == 'q':
     turtle.bye()
     sys.exit()
 
-#loop while input isn't q
+# loop while input isn't q
 while a != 'q':
     # register images
     horse_images = getHorseImages(num_horses)
@@ -246,7 +247,7 @@ while a != 'q':
     displayWinner(horses[winner], banner_images[3][0])
     win_cntr[winner] += 1
 
-    for i in range(num_horses): # clean screen
+    for i in range(num_horses):  # clean screen
         horses[i].clear()
         horses[i].hideturtle()
     turtle.clear()

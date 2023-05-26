@@ -14,8 +14,8 @@ while chars != empty_string:
     if len(chars) == 1:
         print('A one letter word is by definition a palindrome\n')
     else:
-
-        if chars[::-1].lower() == chars.lower(): # uhh palindrome is a reversed string?
+        # uhh palindrome is a reversed string?
+        if chars[::-1].lower() == chars.lower():
             print(chars, 'is a palindrome\n')
         else:
             print(chars, 'is NOT a palindrome\n')
