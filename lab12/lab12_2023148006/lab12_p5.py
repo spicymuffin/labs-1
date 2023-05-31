@@ -40,8 +40,8 @@ class Fraction(object):
         elif type(other) == int:  # if int type
             new_num = self.num * other
             new_denom = self.denom
-        else:  # else f u
-            raise ValueError("help me")
+        else:  # else raise error
+            raise ValueError()
         return Fraction(new_num, new_denom)
 
     def __add__(self, other):
@@ -52,8 +52,8 @@ class Fraction(object):
         elif type(other) == int:  # if int type
             new_num = self.num + (self.denom * other)
             new_denom = self.denom
-        else:  # else f u
-            raise ValueError("this is so fun!!!!")
+        else:  # else raise error
+            raise ValueError()
         return Fraction(new_num, new_denom)
 
     def __float__(self):

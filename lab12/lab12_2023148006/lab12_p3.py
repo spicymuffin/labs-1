@@ -3,6 +3,8 @@ Name: Luigi Cussigh
 Student ID: 2023148006
 Lab problem: lab12_p3.py
 """
+
+
 import random
 
 
@@ -22,7 +24,7 @@ def gen_permutation(n):
         pck = random.randint(0, len(vals) - 1)
         while vals[pck] == i:  # identity is not allowed
             pck = random.randint(0, len(vals) - 1)
-            # swap places with random index bc if valueand index is equa;
+            # swap places with random index bc if valueand index is equal
             # and length is one that means that its a 9, so we need to swap
             # places with some value that went before the 9
             # we decide which one we will change with a value randomly
@@ -36,10 +38,10 @@ def gen_permutation(n):
                 break
         out.append(vals[pck])
         # the following 2 lines of code make this
-        # function O(n) 😁
+        # function run in O(n)
         vals[pck] = vals[-1]
-        vals.pop()  # remove last elemrnt in choice set
-
+        # remove last element in choice set (this is what makes this fast)
+        vals.pop()
     # return permutaiton
     return out
 
@@ -126,11 +128,11 @@ def load_encrypt_key(_filename):
     try:
         with open(_filename + ".key", "r") as file:
             for line in file:
-                c_dec, c_enc = line[:-1].split(",")
-                key[c_dec] = c_enc
+                c_dec, c_enc = line[:-1].split(",")  # parse out mappings
+                key[c_dec] = c_enc  # assign vals
     except Exception as ex:
         print(ex)
-        return -1
+        return -1  # if something breaks we are doomed basically
     return key
 
 
@@ -146,10 +148,10 @@ def dump_encrypt_key(_filename, _key):
         int: operation result
     """
     try:
-        with open(_filename + ".key", "w") as file:
+        with open(_filename + ".key", "w") as file:  # open encryot key file
             for c_dec in _key:
-                c_enc = _key[c_dec]
-                file.write(f"{c_dec},{c_enc}\n")
+                c_enc = _key[c_dec]  # get mapping
+                file.write(f"{c_dec},{c_enc}\n")  # write mapping to file
     except Exception as ex:
         print(ex)
         return -1
@@ -159,28 +161,34 @@ def dump_encrypt_key(_filename, _key):
 filename = input("Enter a filename: ")
 # filename = "test1.enc"
 
+# determine mode
 mode = ""
 if filename[-3:] == "txt":
     mode = "enc"
 elif filename[-3:] == "enc":
     mode = "dec"
 
+# strip filename
 filename_stripped = filename[:-4]
 
+# determine extension
 ext = ""
 if mode == "enc":
     ext = ".enc"
 elif mode == "dec":
     ext = ".txt"
 else:
+    # check wether extension is valid or not
     print("invalid extension")
     exit(0)
 
 try:
+    # open file of correct extension
     file_inp = open(filename, "r")
     file_out = open(filename_stripped + ext, "w")
 except Exception:
     print("error opening .txt or .enc file")
+    exit(0)
 
 # encryption mode
 if mode == "enc":

@@ -36,25 +36,26 @@ class Fraction(object):
                 int: gcd
             """
             gcd = 0
-            while a != 0 or b != 0:
+            while a != 0 or b != 0:  # while we dont get down to zero
                 a = a % b
                 if a == 0:
-                    gcd = b
+                    gcd = b  # gcd is b
                     break
                 b = b % a
                 if b == 0:
-                    gcd = a
+                    gcd = a  # gcd is a
                     break
-            return gcd
+            return gcd  # return gcd
 
-        gcd = find_gcd(self.num, self.denom)
+        gcd = find_gcd(self.num, self.denom)  # find gcd
 
+        # divide entire fraction by gcd
         self.num //= gcd
         self.denom //= gcd
 
         if self.num < 0 and self.denom < 0:
-            self.num *= -1
-            self.denom *= -1
+            self.num *= -1  # flip signs
+            self.denom *= -1  # im so tired of leavin these comments
 
     def adjust(self, factor):
         """multiplies numerator and denominator by factor
@@ -62,7 +63,7 @@ class Fraction(object):
         Args:
             factor (int): factor
         """
-        self.num *= factor
+        self.num *= factor  # multiply
         self.denom *= factor
 
     def __init__(self, n, d):
@@ -76,7 +77,7 @@ class Fraction(object):
         # If we get here, n and d are ok => initialize Fraction:
         self.num = n
         self.denom = d
-        self.reduce()
+        self.reduce()  # reduce fraction
 
     def __str__(self):
         """Returns a string representation of the fraction object (self)"""
@@ -85,13 +86,13 @@ class Fraction(object):
     def __mul__(self, other):
         """Returns new Fraction representing self * other"""
         new_num = self.num * other.num
-        new_denom = self.denom * other.denom
+        new_denom = self.denom * other.denom  # mult denom
         return Fraction(new_num, new_denom)
 
     def __add__(self, other):
         """Returns new Fraction representing self + other"""
         new_num = self.num * other.denom + other.num * self.denom
-        new_denom = self.denom * other.denom
+        new_denom = self.denom * other.denom  # calc new denum
         return Fraction(new_num, new_denom)
 
     def __float__(self):
