@@ -1,0 +1,16 @@
+
+- All CCO1100 teaching materials (C) Yonsei University, 2016--2023.
+
+- You are granted the right for personal use for CCO1100.
+
+- You are *not* granted the right to publish course materials.
+
+  - For example, you are not allowed to put the skeleton code or derivations
+    of it on a public GitHub repository, webserver or similar.
+
+    This measure has been taken to provide equal opportunity for future
+    students.
+
+  - For your own versioning, please use private repositories only. Private
+    GitHub repositories (git-based!) are free of charge for university
+    students.
