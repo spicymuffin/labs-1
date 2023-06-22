@@ -6,8 +6,7 @@ Lab problem: lab13_p2.py
 
 
 class AvgList(list):
-    """child class of python's list class that can compute its average value
-    """
+    """child class of python's list class that can compute its average value"""
 
     def computeAvg(self):
         """method that computes the average
@@ -25,8 +24,3 @@ class AvgList(list):
             else:
                 raise ValueError()  # else raise value error
         return sm / len(self)  # return average value
-
-
-a = AvgList([1, 2, 3, 4])
-
-print(a.computeAvg())

@@ -6,8 +6,7 @@ Lab problem: lab13_p1.py
 
 
 class Range:
-    """class that represents a range
-    """
+    """class that represents a range"""
 
     def __init__(self, start, end):
         """initialize range object
@@ -16,6 +15,11 @@ class Range:
             start (int): range start
             end (int): range end
         """
+        # raise index error if
+        # bounds are messed up
+        if not (start <= end):
+            raise IndexError
+
         self.__start = start  # set start
         self.__end = end  # set end
 
@@ -25,7 +29,8 @@ class Range:
         Returns:
             str: stringified range object
         """
-        return f"{self.__start}...{self.__end}"  # returns stringified range object
+        # returns stringified range object
+        return f"{self.__start}...{self.__end}"
 
     def __lt__(self, other):
         """compares range objects with operator <
@@ -36,7 +41,8 @@ class Range:
         Returns:
             bool: operation result
         """
-        if self.__end < other.__end:  # if self's end is smaller
+        if self.__end < other.__start:
+            # if self's end is smaller
             # than the other's end
             return True  # return true
         return False  # else return false
