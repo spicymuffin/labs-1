@@ -63,9 +63,7 @@ class Vector2D:
 
     def normalized(self):
         length = self.length()
-        self.x1 /= length
-        self.x2 /= length
-        return self
+        return Vector2D(self.x1 / length, self.x2 / length)
 
     def tupled(self):
         return (self.x1, self.x2)
@@ -81,8 +79,7 @@ class Vector2D:
         )
 
 
-print(Vector2D.angle(Vector2D(1, 1), Vector2D(1, 0)) * 180 / math.pi)
-print(Vector2D(1, 1) - Vector2D(-1, -1))
+print(Vector2D(1, 1).normalized().length())
 
 
 class auto_doboggi_man(doboggi_man):
@@ -106,21 +103,18 @@ class auto_doboggi_man(doboggi_man):
         stopflag = False
         mvspd = 10
         for ghost in ghosts:
-            coord = ghost.getPosition()
-            nxtcoord = self.getNxtFrameGhostCoord(coord)
-            if checkCollision(
-                Vector2D(*nxtcoord).tupled(),
-                (
-                    Vector2D(*self.getPosition())
-                    + self.getPointingVector(food[0].getPosition()).normalized()
-                    * mvspd
-                ).tupled(),
-            ):
+            position = Vector2D(*self.getPosition())
+            coord = Vector2D(*ghost.getPosition())
+            nxtcoord = Vector2D(*self.calc_ghost_path(coord.tupled(), 1))
+            move_target = Vector2D(
+                *self.getPosition()) + self.getPointingVector(food[0].getPosition()).normalized() * mvspd
+            print((position - move_target).length())
+            if checkCollision(nxtcoord.tupled(), move_target.tupled()):
                 stopflag = True
 
         if not stopflag:
             self.ttl.forward(mvspd)
-            self.faceCoord(food[0].getPosition())
+            self.face_coord(food[0].getPosition())
 
         #
         # Uncomment to dump positions in the PyCharm console window:
@@ -128,13 +122,16 @@ class auto_doboggi_man(doboggi_man):
         # print(ghosts[0], ghosts[1])
         # print(food[0], food[1], food[2])
 
-    def getNxtFrameGhostCoord(self, t):
-        if t[0] < -X_MAX - 25:
-            return (X_MAX + 25, t[1])
-        else:
-            return (t[0] + 12, t[1])
+    def calc_ghost_path(self, pos, shift):
+        x, y = pos
+        for i in range(shift):
+            if x < -X_MAX - 25:
+                x = X_MAX + 25
+            else:
+                x += -12 if shift > 0 else 12
+        return (x, y)
 
-    def faceCoord(self, t):
+    def face_coord(self, t):
         pos = self.getPosition()
         pointing_vector = Vector2D(*t) - Vector2D(*pos)
         angle = (
@@ -143,9 +140,7 @@ class auto_doboggi_man(doboggi_man):
         if pointing_vector.x2 < 0:
             angle = 360 - angle
 
-        print(angle)
         self.ttl.setheading(angle)
-        self.updateShape()
 
     def getPointingVector(self, t):
         pos = self.getPosition()
