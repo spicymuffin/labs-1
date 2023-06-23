@@ -47,4 +47,4 @@ def searchDir(directory, s):
     return return_list  # return list
 
 
-# print((searchDir("C:/Users/luigi/Desktop/github/labs/lab13", "gay")))
+# print((searchDir("C:/Users/luigi/Desktop/github/labs/lab13/doboggi_man", "gay")))
